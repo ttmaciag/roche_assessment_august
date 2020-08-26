@@ -1,25 +1,27 @@
 import pandas as pd
+import numpy as np
 import pickle as pkl
+import sklearn
 
-df = pd.read_csv("data/val_bf.csv")
-
-df.dropna(inplace = True)
-
-target = df["Survived"]
-del(df["Survived"])
+def make_prediction(model, test_data):
+    """Test your model: make predictions and calculate metrics.
     
-model_unpickle = open("data/model.pkl", 'rb')
-model = pkl.load(model_unpickle)
-model.close()
+    Args:
+        model (str): directory of the model
+        val_data (str): directory of the preprocessed test set
+    """
+    df = pd.read_csv(test_data, sep=";")
 
-predictions = model.predict(df)
-# Reassign target (if it was present) and predictions.
-df["prediction"] = predictions
-df["target"] = target
+    target = df["Survived"].values
+    feats = df.drop(columns=["Survived"]).values
 
-ok = 0
-for i in df.iterrows():
-    if (i[1]["target"] == i[1]["prediction"]):
-        ok = ok + 1
+        
+    model_unpickle = open(model, 'rb')
+    model = pkl.load(model_unpickle)
 
-print("accuracy is", ok / df.shape[0])
+    predictions = model.predict(feats)
+
+    print("Accuracy on test set is: ", np.round(sklearn.metrics.accuracy_score(target, predictions), 3))
+    print("F1 on test set is: ", np.round(sklearn.metrics.f1_score(target, predictions), 3))
+
+

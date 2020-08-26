@@ -3,36 +3,52 @@ import pandas as pd
 import sklearn
 import pickle as pkl
 
-    # Split the data for training.
-df = pd.read_csv("data/train_bf.csv")
+def train_model(train_dir, model_out_dir):
+    """Train the default Random Forrest on train set, save it and calculate 
+    accuracy on training and validation sets.
+    
+    Args:
+        train_dir (str): directory of preprecessed training set
+        val_dir (str): directory of preprecessed validation set
+    """
+    df = pd.read_csv(train_dir, sep=";")
 
-y = df["Survived"]
+    # Split to training and validation sets.
+    from sklearn.model_selection import train_test_split
 
-tr_col = []
-for c in df.columns:
-    if c == "Survived":
-        pass
-    else:
-        tr_col.append(c)
+    y = df["Survived"].values
+    X = df.drop(columns=["Survived"]).values
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y)
+    
 
-# Create a classifier and select scoring methods.
-from sklearn.ensemble import RandomForestClassifier
-clf = RandomForestClassifier(n_estimators=10)
+    # Create a classifier and select scoring methods.
+    from sklearn.ensemble import RandomForestClassifier
+    clf = RandomForestClassifier(n_estimators=10)
 
+    # Fit full model and predict on both train and val.
+    clf.fit(X_train, y_train)
 
-# Fit full model and predict on both train and test.
-clf.fit(df[tr_col], y)
-preds = clf.predict(df[tr_col])
-metric_name = "train_accuracy"
-metric_result = sklearn.metrics.accuracy_score(y, preds)
+    preds_train = clf.predict(X_train)
+    preds_val = clf.predict(X_val)
 
-model_pickle = open("data/model.pkl", 'wb')
-pkl.dump(clf, model_pickle)
-model_pickle.close()
+    # Claculate metrics.
+    metric_names = ["Accuracy", "F1"]
+    train_results = []
+    val_results = []
 
-# Return metrics and model.
-info = ""
-info = info + metric_name
-info = info + " for the model is "
-info = info + str(metric_result)
-print(info)
+    train_results.append(sklearn.metrics.accuracy_score(y_train, preds_train))
+    val_results.append(sklearn.metrics.accuracy_score(y_val, preds_val))
+
+    train_results.append(sklearn.metrics.f1_score(y_train, preds_train))
+    val_results.append(sklearn.metrics.f1_score(y_val, preds_val))
+
+    
+    # Save model
+    model_pickle = open(model_out_dir, 'wb')
+    pkl.dump(clf, model_pickle)
+    model_pickle.close()
+
+    # Return metrics.
+    for i, metric_name in enumerate(metric_names):
+        print("{} on training set is {}.".format((metric_name), np.round(train_results[i], 3)))
+        print("{} on validation set is {}.".format(metric_name, np.round(val_results[i], 3)))
