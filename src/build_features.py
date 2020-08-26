@@ -1,32 +1,31 @@
 import pandas as pd
+from pathlib import Path
 
-import sklearn
-
-def execute(input_file, output_file, force_write = True):
-    """Builds features
+def prepare_features(input_file, output_file="data/train_bf.csv", force_write = False):
+    """Builds features and saves to .csv file.
 
     Args:
-        input_file (str): input file.
+        input_file (.csv): input file directory.
+        output_file (str): output file directory (default=data/train_bf.csv).
+        force_wrtie (bool): overwrite existing file if True (default=False)
     """
-    df = pd.read_csv(input_file)
+    df = pd.read_csv(input_file, sep=";")
 
-    df["Sex"] = df["Sex"].replace("male", 0)
-    df["Sex"] = df["Sex"].replace("female", 1)
+    # create dummy features for Sex
+    df["IsFemale"] = df["Sex"].replace(["male", "female"], [0, 1])
+    df.drop(columns=["Sex"], inplace=True)
 
-    embarked_dict = {}
-    embarked_dict_values = 0
-    for i in df.Embarked:
-        if i in embarked_dict.keys():
-            pass
-        else:
-            embarked_dict_values = embarked_dict_values + 1
-            embarked_dict[i] = embarked_dict_values
-    
-    for i in embarked_dict.keys():
-        df["Embarked"].replace(i, embarked_dict[i], inplace = True)
+    # encode Embarked labels
+    embark_labels = df["Embarked"].unique()
+    df["Embarked"].replace(embark_labels, range(len(embark_labels)), inplace=True)
 
+    # calculate family size and mark single passangers
     df["FamilySize"] = df["SibSp"] + df["Parch"] + 1
     df["IsAlone"] = 0
-    df.loc[df["FamilySize"] == 1, "IsAlone"] = 1
+    df["IsAlone"].where(df["FamilySize"] == 1, 1, inplace=True)
 
-    df.to_csv(output_file)
+    output_file = Path(output_file)
+    if output_file.is_file() and not force_write:
+        print("File already exists. Change 'output_file' or allow 'force_write'.")
+
+    df.to_csv(output_file, sep=';', index=False)
