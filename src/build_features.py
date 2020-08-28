@@ -1,7 +1,8 @@
 import pandas as pd
 from pathlib import Path
 
-def prepare_features(input_file, output_file='data/train_bf.csv', force_write = False):
+
+def prepare_features(input_file, output_file='data/train_bf.csv', standardize=False, test_set=None, force_write = False):
     '''Builds features and saves to .csv file.
 
     Args:
@@ -36,12 +37,13 @@ def prepare_features(input_file, output_file='data/train_bf.csv', force_write = 
     df['IsAlone'] = 0
     df['IsAlone'].where(df['FamilySize'] == 1, 1, inplace=True)
 
+    # clean the dataset
+    df = df[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare', 'IsFemale', 'C', 'Q', 'S', 'Master', 'Miss', 'Mr', 'Mrs', 'Other', 'FamilySize', 'IsAlone']]
+    df.dropna(inplace=True)
+
     output_file = Path(output_file)
     if output_file.is_file() and not force_write:
         print('File already exists. Change "output_file" or allow "force_write".')
 
-    df.drop(columns=['Name', 'Ticket', 'Cabin', 'PassengerId'], inplace=True)
-    df.dropna(inplace=True)
-
-
-    df.to_csv(output_file, sep=';', index=False)
+    else:
+        df.to_csv(output_file, sep=';', index=False)
