@@ -28,4 +28,5 @@ def prepare_features(input_file, output_file="data/train_bf.csv", force_write = 
     if output_file.is_file() and not force_write:
         print("File already exists. Change 'output_file' or allow 'force_write'.")
 
-    df.to_csv(output_file, sep=';', index=False)
+    else:
+        df.to_csv(output_file, sep=';', index=False)
