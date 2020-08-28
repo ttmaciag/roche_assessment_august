@@ -10,7 +10,7 @@ def drop_features(input_file, output_file):
     """
 
     data = pd.read_csv(input_file, sep = ";")
-    data.drop(columns=["Name", "Ticket", "Cabin", "PassengerId"], inplace=True)
+    data.drop(columns=["Ticket", "Cabin", "PassengerId"], inplace=True)
     data = data.dropna()
 
     data.to_csv(output_file, sep=';', index=False)

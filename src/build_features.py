@@ -16,8 +16,19 @@ def prepare_features(input_file, output_file="data/train_bf.csv", force_write = 
     df.drop(columns=["Sex"], inplace=True)
 
     # encode Embarked labels
-    embark_labels = df["Embarked"].unique()
-    df["Embarked"].replace(embark_labels, range(len(embark_labels)), inplace=True)
+    embark_labels = pd.get_dummies(df["Embarked"])
+    df = pd.concat([df, embark_labels], axis=1)
+
+    # generate Titles from Names and use them to fill missing Age
+    df['Title'] = df['Name'].str.extract(r'([A-Za-z]+)\.')
+    df['Age'] = df.groupby('Title').transform(lambda x: x.fillna(x.mean()))
+
+    # encode Titles
+    title_counts = df['Title'].value_counts() 
+    popular_titles = title_counts[title_counts > 10].index.to_list()
+    df.loc[~df.Title.isin(popular_titles), 'Title'] = 'Other'
+    df = pd.concat([df, pd.get_dummies(df['Title'])], axis=1)
+    df.drop(columns=['Title'], inplace=True)
 
     # calculate family size and mark single passangers
     df["FamilySize"] = df["SibSp"] + df["Parch"] + 1
