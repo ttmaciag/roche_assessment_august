@@ -1,23 +1,16 @@
-from preprocess import drop_features
 from build_features import prepare_features
 from train import train_model
 from predict import make_prediction
 
-from pathlib import Path
-
-data_path = Path('/Users/Tomek/git/roche_assessment_august/data')
-
+standardize = True
 # Data preprocessing
-drop_features(data_path / 'train.csv', data_path / 'train_stage1.csv')
-prepare_features(data_path / 'train_stage1.csv', data_path / 'train_stage2.csv', True)
-
-drop_features(data_path / 'val.csv', data_path / 'test_stage1.csv') # we rename val to test, as it makes more sense
-prepare_features(data_path / 'test_stage1.csv', data_path / 'test_stage2.csv', True)
+prepare_features('data/train.csv', 'data/train_processed.csv', True)
+prepare_features('data/val.csv', 'data/test_processed.csv', True) # NOTE: we rename val to test as it makes more sense
 
 # Training
-train_model(data_path / 'train_stage2.csv', data_path / 'model.pkl')
+train_model('data/train_processed.csv', 'data/model.pkl', standardize)
 
 # Predictions
-make_prediction(data_path / 'model.pkl', data_path / 'test_stage2.csv')
+make_prediction('data/model.pkl', 'data/test_processed.csv', standardize)
 
 

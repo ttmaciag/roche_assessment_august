@@ -2,8 +2,10 @@ import numpy as np
 import pandas as pd
 import sklearn
 import pickle as pkl
+from sklearn.preprocessing import StandardScaler
 
-def train_model(train_dir, model_out_dir):
+
+def train_model(train_dir, model_out_dir, standardize):
     """Train the default Random Forrest on train set, save it and calculate 
     accuracy on training and validation sets.
     
@@ -13,11 +15,17 @@ def train_model(train_dir, model_out_dir):
     """
     df = pd.read_csv(train_dir, sep=";")
 
-    # Split to training and validation sets.
+    # Split to training and validation sets, optionaly standardize and save scaler.
     from sklearn.model_selection import train_test_split
 
     y = df["Survived"].values
     X = df.drop(columns=["Survived"]).values
+
+    if standardize:
+        scaler = StandardScaler()
+        X = scaler.fit_transform(X)
+        pkl.dump(scaler, open('data/scaler.pkl', 'wb'))
+        
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y)
     
 

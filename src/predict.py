@@ -3,7 +3,7 @@ import numpy as np
 import pickle as pkl
 import sklearn
 
-def make_prediction(model, test_data):
+def make_prediction(model, test_data, standardize):
     """Test your model: make predictions and calculate metrics.
     
     Args:
@@ -15,6 +15,9 @@ def make_prediction(model, test_data):
     target = df["Survived"].values
     feats = df.drop(columns=["Survived"]).values
 
+    if standardize:
+        scaler = pkl.load(open('data/scaler.pkl', 'rb'))
+        feats = scaler.transform(feats)
         
     model_unpickle = open(model, 'rb')
     model = pkl.load(model_unpickle)
