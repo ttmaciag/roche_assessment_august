@@ -1,6 +1,6 @@
 # Titanic Assessment Project
 
-This repository contains multiple tasks on the Titanic dataset. To see the description of each task got to [this document](docs/TASKS.md).
+This repository contains multiple tasks on the Titanic dataset. To see the instructions for each task got to [this document](docs/TASKS.md).
 
 
 ## Branch-specific comments:
