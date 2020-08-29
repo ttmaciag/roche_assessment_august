@@ -4,5 +4,5 @@ This repository contains multiple tasks on the Titanic dataset. To see the instr
 
 
 ## Branch-specific comments:
-To run the model run in terminal from the repo root 'python src/pipeline.py'. This will prepare the dataset, train the model, evaluate it and print the metrics.
+To run the code, execute 'python src/pipeline.py' in the terminal from the ROOT of the repo. This will prepare the dataset, train the model, evaluate it and print the metrics.
 
