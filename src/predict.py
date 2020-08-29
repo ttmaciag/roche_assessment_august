@@ -10,6 +10,9 @@ def make_prediction(model, test_data, standardize):
         model (str): directory of the model
         val_data (str): directory of the preprocessed test set
         standardize (bool): if True, the features will be standardized with StandardScaler
+
+    Returns:
+        1D np.array with [accuracy, precision, recall, f1] on test set.
     """
     df = pd.read_csv(test_data, sep=";")
 
@@ -25,7 +28,11 @@ def make_prediction(model, test_data, standardize):
 
     predictions = model.predict(feats)
 
-    print("Accuracy on test set is: ", np.round(sklearn.metrics.accuracy_score(target, predictions), 3))
-    print("F1 on test set is: ", np.round(sklearn.metrics.f1_score(target, predictions), 3))
+    accuracy = sklearn.metrics.accuracy_score(target, predictions)
+    precision, recall, f1, _ = sklearn.metrics.precision_recall_fscore_support(target, predictions, average='binary')
+    
+
+    return [accuracy, precision, recall, f1]
+    
 
 
