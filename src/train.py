@@ -12,6 +12,7 @@ def train_model(train_dir, model_out_dir, standardize):
     Args:
         train_dir (str): directory of preprecessed training set
         val_dir (str): directory of preprecessed validation set
+        standardize (bool): if True, the features will be standardized with StandardScaler
     """
     df = pd.read_csv(train_dir, sep=";")
 
