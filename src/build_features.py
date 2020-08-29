@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path
 
 
-def prepare_features(input_file, output_file='data/train_bf.csv', standardize=False, test_set=None, force_write = False):
+def prepare_features(input_file, output_file='data/train_bf.csv', force_write = False):
     '''Builds features and saves to .csv file.
 
     Args:

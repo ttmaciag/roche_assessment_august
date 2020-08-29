@@ -9,6 +9,7 @@ def make_prediction(model, test_data, standardize):
     Args:
         model (str): directory of the model
         val_data (str): directory of the preprocessed test set
+        standardize (bool): if True, the features will be standardized with StandardScaler
     """
     df = pd.read_csv(test_data, sep=";")
 
