@@ -4,12 +4,13 @@ from predict import make_prediction
 import pandas as pd
 
 '''
-Script for comparing multiple models
+Script for comparing multiple models. Below you can select which models you want to compare and how many
+time you want to train and test them.
 '''
 
 standardize = True
 models = ['random_forest', 'gbdt', 'svc']
-runs_per_model = 5
+runs_per_model = 10
 force_overwrite = True
 
 # Data preprocessing
