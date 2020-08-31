@@ -6,6 +6,8 @@ This repository contains multiple soultions to tasks performed on the Titanic da
 
 To see the instructions for each task got to [this document](docs/TASKS.md).
 
+Detailed comments on each task are provided in its respective branch.
+
 <br/>
 
 ----------------
@@ -66,5 +68,3 @@ Run basic unit-tests with `pytest /src/tests`. (keep in mind that test_model.py 
 1. Wrap pipline.py and pipline_multi_model.py in parsers, to run them from shell.
 2. Add more unit tests
 3. Add more models (SVM with non-linear kernel)
-
-
