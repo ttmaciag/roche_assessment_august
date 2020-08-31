@@ -32,6 +32,10 @@ Running `python pipline_multi_model.py` should give similar results on the Titan
 
 <br/>
 
+Go [here](/docs/MODELS.md) to read on the interpretation of these scores.
+
+<br/>
+
 ## Data-processing and model-development:
 Inside `src/` you'll find:
 
@@ -64,5 +68,3 @@ Run basic unit-tests with `pytest /src/tests`. (keep in mind that test_model.py 
 1. Wrap pipline.py and pipline_multi_model.py in parsers, to run them from shell.
 2. Add more unit tests
 3. Add more models (SVM with non-linear kernel)
-
-
