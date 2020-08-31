@@ -4,6 +4,7 @@ from predict import make_prediction
 '''
 Script for a training and testing a model
 '''
+# Parameters
 standardize = False
 force_overwrite = True
 model='random_forest'

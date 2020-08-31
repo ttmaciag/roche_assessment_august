@@ -7,7 +7,8 @@ parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
 def test_building_features():
-
+    '''Check if the features constructed as desired'''
+    
     from build_features import prepare_features
 
     input_data_dir = 'src/tests/test_dataset.csv' 
@@ -24,7 +25,8 @@ def test_building_features():
 
 
 def test_predictions():
-
+    '''Test if the metric are calculated correctly'''
+    
     from predict import make_prediction
 
     test_data_dir = 'src/tests/test_target.csv'
@@ -32,6 +34,29 @@ def test_predictions():
     out = make_prediction('src/tests/test_model.pkl', test_data_dir, False)
 
     assert out == expected
+
+
+def test_predicted_df():
+    '''Test if the DF saved after predictions contains the predictions'''
+    
+    from predict import make_prediction
+
+    test_data_dir = 'src/tests/test_target.csv'
+    _ = make_prediction('src/tests/test_model.pkl', test_data_dir, False, save_to_file='src/tests/test_pred_out.csv')
+
+    pred_out = pd.read_csv('src/tests/test_pred_out.csv', sep=';')
+    
+    errors = []
+    if "Predicted" not in pred_out.columns.sort_values().tolist():
+        errors.append('Predicted column not in DF.')
+
+    if  pred_out.Predicted.isna().any():
+        errors.append('Found Nan in Predicted values')
+
+    os.remove('src/tests/test_pred_out.csv')
+    
+    assert not errors, "errors occured:\n{}".format("\n".join(errors))
+
 
 
 
