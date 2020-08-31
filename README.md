@@ -6,6 +6,8 @@ This repository contains multiple soultions to tasks performed on the Titanic da
 
 To see the instructions for each task got to [this document](docs/TASKS.md).
 
+Detailed comments on each task are provided in its respective branch.
+
 <br/>
 
 ----------------
