@@ -4,7 +4,4 @@ This repository contains multiple tasks on the Titanic dataset. To see the instr
 
 
 ## Branch-specific comments:
-There are two options for running models in this branch:
-1. To run and test a single model use 'python src/pipeline.py. Inside this script you can choose the model.
-2. Compare multiple model using 'python src/pipline_multi_model.py'.
-
+To run the code, execute 'python src/pipeline.py' in the terminal from the ROOT of the repo. This will prepare the dataset, train the model, evaluate it and print the metrics.
