@@ -1,4 +1,3 @@
-from preprocess import drop_features
 from build_features import prepare_features
 from train import train_model
 from predict import make_prediction
