@@ -4,4 +4,6 @@ This repository contains multiple tasks on the Titanic dataset. To see the instr
 
 
 ## Branch-specific comments:
-To run the code, execute 'python src/pipeline.py' in the terminal from the ROOT of the repo. This will prepare the dataset, train the model, evaluate it and print the metrics.
+In addition to running one of the models ('random_forest', 'gbdt', 'svc') with 'python src/pipline.py', you can also run all three models with 'python src/pipline_multi_model.py'. 
+
+The first script is more useful for tunning the hyper-parameters, while the second for comparing the models.
