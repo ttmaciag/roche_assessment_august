@@ -4,7 +4,7 @@ This repository contains multiple tasks on the Titanic dataset. To see the instr
 
 
 ## Branch-specific comments:
-To test the code run: `pytest src/tests`.
+To test the code run: `$ pytest src/tests`.
 The tests are stored in 'src/tests/test_utils.py'.
 NOTE: The tests should pass, but you might get a warning, which is bug in current numpy release.
 
