@@ -30,6 +30,10 @@ Running `python pipline_multi_model.py` should give similar results on the Titan
 
 <br/>
 
+Go [here](/docs/MODELS.md) to read on the interpretation of these scores.
+
+<br/>
+
 ## Data-processing and model-development:
 Inside `src/` you'll find:
 
