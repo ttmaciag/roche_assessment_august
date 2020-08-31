@@ -24,6 +24,7 @@ def prepare_features(input_file, output_file="data/train_bf.csv", force_write = 
     df["IsAlone"] = 0
     df["IsAlone"].where(df["FamilySize"] == 1, 1, inplace=True)
 
+    # safely save to csv
     output_file = Path(output_file)
     if output_file.is_file() and not force_write:
         print("File already exists. Change 'output_file' or allow 'force_write'.")
