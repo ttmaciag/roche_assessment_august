@@ -2,15 +2,16 @@ from build_features import prepare_features
 from train import train_model
 from predict import make_prediction
 import pandas as pd
+from tqdm import tqdm
 
 '''
-Script for comparing multiple models. Below you can select which models you want to compare and how many
-time you want to train and test them.
+Script for comparing multiple models
 '''
 
+# Parameters
 standardize = True
 models = ['random_forest', 'gbdt', 'svc']
-runs_per_model = 10
+runs_per_model = 5
 force_overwrite = True
 
 # Data preprocessing
@@ -20,11 +21,11 @@ prepare_features('data/val.csv', 'data/test_processed.csv', force_overwrite) # N
 # Train and test each model 5 times and report average scores
 metrics_df = pd.DataFrame(columns=['Accuracy', 'Precision', 'Recall', 'F1'])
 
-for model in models:
+for model in tqdm(models):
     model_runs = []
 
     for run in range(runs_per_model):
-        train_model('data/train_processed.csv', model=model, standardize=standardize)
+        train_model('data/train_processed.csv', model=model, standardize=standardize, verbose=False)
         run_result = make_prediction('data/' + model + '.pkl', 'data/test_processed.csv', standardize=standardize)
         model_runs.append(run_result)
 
