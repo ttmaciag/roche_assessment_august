@@ -14,15 +14,15 @@ Detailed comments on each task are provided in its respective branch.
 ## TL;DR
 This repository contains code for training, testing and comparing three ML models on the Titanic dataset. 
 To run the code:
-1. `pip install requirements.txt` or use Docker ([instructions](#Docker)).
-2. `python src/pipline.py` to train and test a single model.
-3. `python pipline_multi_model.py` to train, test and compare multiple models.
+1. `$ pip install requirements.txt` or use Docker ([instructions](#Docker)).
+2. `$ python src/pipline.py` to train and test a single model.
+3. `$ python pipline_multi_model.py` to train, test and compare multiple models.
 ----------------
 
 <br/>
 
 ## Models
-Running `python pipline_multi_model.py` should give similar results on the Titanic test set:
+Running `$ python pipline_multi_model.py` should give similar results on the Titanic test set:
 
 | Model          | Accuracy | Precision | Recall |   F1  |
 |----------------|----------|-----------|--------|-------|
@@ -52,15 +52,21 @@ To run the repository inside a Docker container:
 
 1. Install Docker and make sure the Docker daemon is running.
 2. In the ROOT of this repo run: `$ docker build -t titanic`.
-3. Now you can either run `$ docker run titanic` to automatically train and test the three models or execute `docker run -it --entrypoint /bin/bash titanic` to enter the container via bash.
-4. To exit the container execute `exit`.
+3. Now you can either run `$ docker run titanic` to automatically train and test the three models or execute `$ docker run -it --entrypoint /bin/bash titanic` to enter the container via bash.
+4. To exit the container execute `$ exit`.
 
 <br/>
 
 ## Unit-tests
-Run basic unit-tests with `pytest /src/tests`. (keep in mind that test_model.py is not stored in the repo due to its size)
+Run basic unit-tests with `$ pytest /src/tests`. (keep in mind that test_model.py is not stored in the repo due to its size)
 
 <br/>
+
+## API
+Simulate a basic web API request:
+1. Start the server: `$ python api/app.py`
+2. Call the server in a new terminal instance: `$ python api/request.py`
+3. You should recieve a list with binary classifications made by the model. 
 
 ----------------
 
@@ -68,3 +74,4 @@ Run basic unit-tests with `pytest /src/tests`. (keep in mind that test_model.py 
 1. Wrap pipline.py and pipline_multi_model.py in parsers, to run them from shell.
 2. Add more unit tests
 3. Add more models (SVM with non-linear kernel)
+4. Make an API that is actually usefeul
