@@ -70,6 +70,8 @@ Simulate a basic web API request:
 2. Call the server in a new terminal instance: `$ python api/request.py`
 3. You should recieve a list with binary classifications made by the model. 
 
+<br/>
+
 ----------------
 
 ## To Do
