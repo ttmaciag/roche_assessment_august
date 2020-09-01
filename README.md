@@ -60,7 +60,7 @@ To run the repository inside a Docker container:
 <br/>
 
 ## Unit-tests
-Run basic unit-tests with `$ pytest /src/tests`. (keep in mind that test_model.py is not stored in the repo due to its size)
+Run basic unit-tests with `$ pytest src/tests`. (keep in mind that test_model.py is not stored in the repo due to its size)
 
 <br/>
 
