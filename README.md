@@ -51,8 +51,10 @@ Inside `src/` you'll find:
 To run the repository inside a Docker container:
 
 1. Install Docker and make sure the Docker daemon is running.
-2. In the ROOT of this repo run: `$ docker build -t titanic`.
-3. Now you can either run `$ docker run titanic` to automatically train and test the three models or execute `$ docker run -it --entrypoint /bin/bash titanic` to enter the container via bash.
+2. In the ROOT of this repo run: `$ docker build -t titanic .`.
+3. Now you can either run:
+    - `$ docker run titanic` to automatically train and test the three models  
+    - or `$ docker run -it --entrypoint /bin/bash titanic` to enter the container via bash.
 4. To exit the container execute `$ exit`.
 
 <br/>
